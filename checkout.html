@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Upload Checker</title>
+</head>
+<style>
+  h2{
+color: green;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  }
+  button{
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+  }
+  input{ background-color: green;
+  color: white;
+  border-radius: 5px;}
+</style>
+<body>
+ <CENTER> <h2>Upload Your Project</h2></CENTER>
+  <input type="file" id="projectUpload" />
+  <button onclick="checkProject()">Check Project</button>
+  <p id="result"></p>
+
+  <script>
+    function checkProject() {
+      const fileInput = document.getElementById("projectUpload");
+      const result = document.getElementById("result");
+
+      if (fileInput.files.length === 0) {
+        result.textContent = "No file uploaded.";
+        result.style.color = "red";
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      // Example conditions
+      const isZip = file.name.endsWith(".zip");
+      const isUnder5MB = file.size < 5 * 1024 * 1024; // 5 MB
+
+      // Simulate README.md check (real check requires backend or unzipping in browser)
+      const hasReadme = file.name.toLowerCase().includes("readme");
+
+      if (isZip && isUnder5MB && hasReadme) {
+        result.textContent = "Project Accepted ✅";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Project Rejected ❌";
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
